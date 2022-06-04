@@ -7,5 +7,8 @@ spring:
     password: mysql
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**Mapper.xml
+#wx:
+#  appid:
+#  secret:
 server:
   port: 8888

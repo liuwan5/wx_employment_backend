@@ -13,17 +13,10 @@ import java.time.LocalDateTime;
 public interface UserService {
     /**
      * 登录，如果是新用户，返回需要注册，否则返回user
-     * @param openid
+     * @param jsCode
      * @return
      */
-    public Result login(String openid);
-
-    /**
-     * 注册，并返回uid
-     * @param openid
-     * @return
-     */
-    public User register(String openid);
+    public Result login(String jsCode);
 
     /**
      * 获取用户的地址
@@ -46,4 +39,5 @@ public interface UserService {
      * @return
      */
     public Result<LocalDateTime> getLastLoginTime(HttpServletRequest request);
+
 }
