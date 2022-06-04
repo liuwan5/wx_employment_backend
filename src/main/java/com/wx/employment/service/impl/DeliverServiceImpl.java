@@ -47,10 +47,6 @@ public class DeliverServiceImpl implements DeliverService {
             if (nowUser == null) {
                 return Result.noLogin();
             }
-            // 只有employee能投递
-            if(nowUser.getType() != 0){
-                return Result.noAuth();
-            }
             // 在已投递的简历中增加这个简历
             Resume resume = resumeDao.getById(deliverParam.getRid());
             int drid = resumeDeliveredService.addResume(resume,request);
@@ -79,10 +75,6 @@ public class DeliverServiceImpl implements DeliverService {
             if (nowUser == null) {
                 return Result.noLogin();
             }
-            // 只有employee能查看
-            if(nowUser.getType() != 0){
-                return Result.noAuth();
-            }
             LambdaQueryWrapper<DeliverRelation> deliverQuery = new LambdaQueryWrapper<>();
             deliverQuery.eq(DeliverRelation::getEmployeeId, nowUser.getUid());
             Page<DeliverRelation> producePage = new Page<>(param.getCurrentPage(), param.getPageSize());
@@ -102,10 +94,6 @@ public class DeliverServiceImpl implements DeliverService {
             // 登录确认
             if (nowUser == null) {
                 return Result.noLogin();
-            }
-            // 只有employer能查看
-            if(nowUser.getType() != 1){
-                return Result.noAuth();
             }
             LambdaQueryWrapper<DeliverRelation> deliverQuery = new LambdaQueryWrapper<>();
             deliverQuery.eq(DeliverRelation::getJid, jid);
@@ -127,10 +115,6 @@ public class DeliverServiceImpl implements DeliverService {
             if (nowUser == null) {
                 return Result.noLogin();
             }
-            // 只有employer能录用
-            if(nowUser.getType() != 1){
-                return Result.noAuth();
-            }
             LambdaUpdateWrapper<DeliverRelation> deliverUpdate = new LambdaUpdateWrapper<>();
             // 找到这个投递关系并通过
             deliverUpdate.eq(DeliverRelation::getDid, did)
@@ -151,10 +135,6 @@ public class DeliverServiceImpl implements DeliverService {
             // 登录确认
             if (nowUser == null) {
                 return Result.noLogin();
-            }
-            // 只有employer能录用
-            if(nowUser.getType() != 1){
-                return Result.noAuth();
             }
             LambdaUpdateWrapper<DeliverRelation> deliverUpdate = new LambdaUpdateWrapper<>();
             // 找到这个投递关系并通过

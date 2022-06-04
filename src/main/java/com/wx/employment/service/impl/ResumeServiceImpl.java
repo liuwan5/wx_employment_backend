@@ -37,10 +37,6 @@ public class ResumeServiceImpl implements ResumeService {
             if (nowUser == null) {
                 return Result.noLogin();
             }
-            // employee才能查看自己的简历
-            if(nowUser.getType() != 0){
-                return Result.noAuth();
-            }
             LambdaQueryWrapper<Resume> resumeQuery = new LambdaQueryWrapper<>();
             resumeQuery.eq(Resume::getUid, nowUser.getUid());
             Page<Resume> producePage = new Page<>(param.getCurrentPage(), param.getPageSize());
@@ -60,10 +56,6 @@ public class ResumeServiceImpl implements ResumeService {
             // 登录确认
             if (nowUser == null) {
                 return Result.noLogin();
-            }
-            // employee才能增加自己的简历
-            if(nowUser.getType() == 0){
-                return Result.noAuth();
             }
             Resume resume = new Resume();
             resume.setResumeName(resumeParam.getResumeName())
@@ -92,10 +84,6 @@ public class ResumeServiceImpl implements ResumeService {
             if (nowUser == null) {
                 return Result.noLogin();
             }
-            // employee才能删除自己的简历
-            if(nowUser.getType() == 0){
-                return Result.noAuth();
-            }
             resumeDao.remove(new LambdaQueryWrapper<Resume>().eq(Resume::getRid, rid));
             return Result.delSuccess();
         }catch (Exception e){
@@ -112,10 +100,6 @@ public class ResumeServiceImpl implements ResumeService {
             // 登录确认
             if (nowUser == null) {
                 return Result.noLogin();
-            }
-            // employee才能修改自己的简历
-            if(nowUser.getType() == 0){
-                return Result.noAuth();
             }
             LambdaUpdateWrapper<Resume> lambdaUpdateWrapper = new LambdaUpdateWrapper<>();
             lambdaUpdateWrapper.eq(Resume::getRid, resume.getRid());

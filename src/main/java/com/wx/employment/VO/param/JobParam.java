@@ -15,8 +15,6 @@ import java.math.BigDecimal;
 public class JobParam {
     private String name;
 
-    private String type;
-
     private Integer headcount;
 
     private Integer duration;

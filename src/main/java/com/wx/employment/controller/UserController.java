@@ -31,11 +31,6 @@ public class UserController {
         return userService.login(openid);
     }
 
-    @PostMapping("/register")
-    public Result register(@RequestBody User user){
-        return userService.register(user.getOpenid(), user.getType());
-    }
-
     @GetMapping("/getLocation")
     public Result getLocation(HttpServletRequest request){
         return userService.getUserLocation(request);

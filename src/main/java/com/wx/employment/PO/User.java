@@ -29,8 +29,6 @@ public class User implements Serializable {
 
     private String openid;
 
-    private Integer type;
-
     private LocalDateTime createdTime;
 
     private LocalDateTime lastLogin;

@@ -14,9 +14,9 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class JobsConditionParam {
 
-    // 工作类型
+    // 关键词
 
-    private String type;
+    private String keyword;
 
     // 工作时间范围
 

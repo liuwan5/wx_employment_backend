@@ -29,8 +29,6 @@ public class Job implements Serializable {
 
     private String name;
 
-    private String type;
-
     private Integer headcount;
 
     private Integer duration;

@@ -34,8 +34,12 @@ public class UserServiceImpl implements UserService {
             //User user = userDao.getOne(new QueryWrapper<User>().eq("openid",openid));
 
             User user = userDao.getOne(new QueryWrapper<User>().lambda().eq(User::getOpenid, openid));
+            // 第一次使用程序，自动注册登录
             if (user == null) {
-                return Result.noRegister();
+                user = register(openid);
+                if(user == null){
+                    return Result.executeFailure( "登录失败");
+                }
             }
             // 登录更新上次登录的时间
             LocalDateTime time = LocalDateTime.now();
@@ -51,19 +55,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Result register(String openid, int type) {
+    public User register(String openid) {
         try{
         User user = new User();
         LocalDateTime time = LocalDateTime.now();
         user.setOpenid(openid)
-            .setType(type)
             .setCreatedTime(time)
             .setLastLogin(time);
         userDao.save(user);
-        return Result.executeSuccess("注册成功");
+        return user;
         }catch (Exception e){
             log.error(e.toString());
-            return Result.executeFailure("注册失败");
+            return null;
         }
     }
 

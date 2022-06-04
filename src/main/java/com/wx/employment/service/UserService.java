@@ -1,5 +1,6 @@
 package com.wx.employment.service;
 
+import com.wx.employment.PO.User;
 import com.wx.employment.VO.Location;
 import com.wx.employment.common.Result;
 
@@ -20,10 +21,9 @@ public interface UserService {
     /**
      * 注册，并返回uid
      * @param openid
-     * @param type
      * @return
      */
-    public Result register(String openid, int type);
+    public User register(String openid);
 
     /**
      * 获取用户的地址

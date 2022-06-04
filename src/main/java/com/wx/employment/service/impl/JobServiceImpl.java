@@ -42,8 +42,9 @@ public class JobServiceImpl implements JobService {
                 return Result.noLogin();
             }
             LambdaQueryWrapper<Job> jobQuery = new LambdaQueryWrapper<>();
-            if (param.getType() != null) {
-                jobQuery.eq(Job::getType, param.getType());
+            // 工作名字关键字查找
+            if (param.getKeyword() != null) {
+                jobQuery.like(Job::getName, "%"+param.getKeyword()+"%");
             }
             if (param.getSalaryType() != -1) {
                 jobQuery.eq(Job::getSalaryType, param.getSalaryType());
@@ -86,10 +87,6 @@ public class JobServiceImpl implements JobService {
             if (nowUser == null) {
                 return Result.noLogin();
             }
-            // employer才能查看自己发布的job
-            if(nowUser.getType() != 1){
-                return Result.noAuth();
-            }
             LambdaQueryWrapper<Job> jobQuery = new LambdaQueryWrapper<>();
             jobQuery.eq(Job::getCreatedUserId, nowUser.getUid());
             Page<Job> producePage = new Page<>(param.getCurrentPage(), param.getPageSize());
@@ -127,13 +124,8 @@ public class JobServiceImpl implements JobService {
             if (nowUser == null) {
                 return Result.noLogin();
             }
-            // employee不能发布招聘信息
-            if(nowUser.getType() == 0){
-                return Result.noAuth();
-            }
             Job job = new Job();
             job.setName(jobParam.getName())
-                    .setType(jobParam.getType())
                     .setHeadcount(jobParam.getHeadcount())
                     .setDuration(jobParam.getDuration())
                     .setDurationType(jobParam.getDurationType())
@@ -163,10 +155,6 @@ public class JobServiceImpl implements JobService {
             if (nowUser == null) {
                 return Result.noLogin();
             }
-            // employee不能删除招聘信息
-            if(nowUser.getType() == 0){
-                return Result.noAuth();
-            }
             jobDao.remove(new QueryWrapper<Job>().lambda().eq(Job::getJid, jid));
             return Result.delSuccess();
         }catch (Exception e){
@@ -183,10 +171,6 @@ public class JobServiceImpl implements JobService {
             // 登录确认
             if (nowUser == null) {
                 return Result.noLogin();
-            }
-            // employee不能删除招聘信息
-            if(nowUser.getType() == 0){
-                return Result.noAuth();
             }
             LambdaUpdateWrapper<Job> lambdaUpdateWrapper = new LambdaUpdateWrapper<>();
             lambdaUpdateWrapper.eq(Job::getJid, job.getJid());

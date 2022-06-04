@@ -14,7 +14,6 @@ import java.util.Date;
 
 /**
  * @author wbl
- * @date 1/29/2021 4:27 PM.
  * @description: JWT的工具类
  */
 
@@ -36,7 +35,6 @@ public class JwtUtil {
         // 添加实体信息，即payload
         builder.withClaim("uid", user.getUid());
         builder.withClaim("openid",user.getOpenid());
-        builder.withClaim("type",user.getType());
 
         // 过期时间
         Calendar instance = Calendar.getInstance();
@@ -65,7 +63,6 @@ public class JwtUtil {
         User user = new User();
         user.setUid(decodedJWT.getClaim("uid").asInt());
         user.setOpenid(String.valueOf(decodedJWT.getClaim("openid").asInt()));
-        user.setType(decodedJWT.getClaim("type").asInt());
         return user;
     }
 
