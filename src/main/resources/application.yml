@@ -2,9 +2,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/employment_v2?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
-    username: root
-    password: mysql
+    url: jdbc:mysql://rm-bp1c81zz11h13tm2gyo.mysql.rds.aliyuncs.com:3306/employment?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: user1
+    password: 20122002Liu
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**Mapper.xml
 #wx:
