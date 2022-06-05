@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author wbl
@@ -42,6 +43,20 @@ public class ResumeServiceImpl implements ResumeService {
             Page<Resume> producePage = new Page<>(param.getCurrentPage(), param.getPageSize());
             IPage<Resume> page = resumeDao.page(producePage, resumeQuery);
             return Result.getSuccess(page);
+        }catch (Exception e){
+            log.error(e.toString());
+            e.printStackTrace();
+            return Result.getFailure();
+        }
+    }
+
+    @Override
+    public Result<List<Resume>> getResumeByUid(int uid, HttpServletRequest request) {
+        try{
+            LambdaQueryWrapper<Resume> resumeQuery = new LambdaQueryWrapper<>();
+            resumeQuery.eq(Resume::getUid, uid);
+            List<Resume> resumes = resumeDao.list(resumeQuery);
+            return Result.getSuccess(resumes);
         }catch (Exception e){
             log.error(e.toString());
             e.printStackTrace();

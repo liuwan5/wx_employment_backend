@@ -66,7 +66,8 @@ public class JobServiceImpl implements JobService {
                 jobQuery.ge(Job::getLatitude, range[2]);
                 jobQuery.le(Job::getLatitude, range[3]);
             }
-
+            // 不查询自己发布的job
+            jobQuery.ne(Job::getCreatedUserId, nowUser.getUid());
 
             Page<Job> producePage = new Page<>(param.getCurrentPage(), param.getPageSize());
             // 根据条件查询

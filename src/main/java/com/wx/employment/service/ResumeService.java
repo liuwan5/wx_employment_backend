@@ -9,6 +9,7 @@ import com.wx.employment.VO.param.ResumeParam;
 import com.wx.employment.common.Result;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author wbl
@@ -21,6 +22,14 @@ public interface ResumeService {
      * @return
      */
     public Result<IPage<Resume>> getUserResume(PageParam pageParam, HttpServletRequest request);
+
+    /**
+     * 根据uid获取简历的list
+     * @param uid
+     * @param request
+     * @return
+     */
+    public Result<List<Resume>> getResumeByUid(int uid, HttpServletRequest request);
 
     /**
      * 当前用户添加一个新的简历

@@ -47,6 +47,14 @@ public class DeliverServiceImpl implements DeliverService {
             if (nowUser == null) {
                 return Result.noLogin();
             }
+            // 如果这个工作已经投递过简历了，那么禁止投递，返回简历投递失败
+            LambdaQueryWrapper<DeliverRelation> query = new LambdaQueryWrapper<>();
+            query.eq(DeliverRelation::getJid, deliverParam.getJid())
+                    .eq(DeliverRelation::getEmployeeId, nowUser.getUid());
+            DeliverRelation oldDeliverRelation = deliverRelationDao.getOne(query);
+            if(oldDeliverRelation != null){
+                return Result.executeFailure("你已经投递过简历，请不要重复投递简历");
+            }
             // 在已投递的简历中增加这个简历
             Resume resume = resumeDao.getById(deliverParam.getRid());
             int drid = resumeDeliveredService.addResume(resume,request);

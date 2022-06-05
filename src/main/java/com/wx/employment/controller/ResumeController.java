@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * <p>
@@ -33,6 +34,11 @@ public class ResumeController {
     @PostMapping("/getResumes")
     public Result<IPage<Resume>> getResumes(@RequestBody PageParam pageParam, HttpServletRequest request){
         return resumeService.getUserResume(pageParam, request);
+    }
+
+    @GetMapping("/getResumesByUid")
+    public Result<List<Resume>> getResumesByUid(@RequestParam int uid, HttpServletRequest request){
+        return resumeService.getResumeByUid(uid, request);
     }
 
     @PostMapping("/add")
