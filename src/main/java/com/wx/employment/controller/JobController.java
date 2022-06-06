@@ -39,6 +39,11 @@ public class JobController {
         return jobService.getJobsByUid(pageParam, request);
     }
 
+    @GetMapping("/getJob")
+    public Result getJob(@RequestParam int jid, HttpServletRequest request){
+        return jobService.getJobsByJid(jid, request);
+    }
+
     @PostMapping("/add")
     public Result addJob(@RequestBody JobParam jobParam, HttpServletRequest request){
         return jobService.addJob(jobParam, request);
