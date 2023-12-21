@@ -2,6 +2,7 @@ package com.wx.employment.service;
 
 import com.wx.employment.PO.User;
 import com.wx.employment.VO.Location;
+import com.wx.employment.VO.UserProfile;
 import com.wx.employment.common.Result;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,5 +40,7 @@ public interface UserService {
      * @return
      */
     public Result<LocalDateTime> getLastLoginTime(HttpServletRequest request);
+
+    public Result<UserProfile> getUserProfile(HttpServletRequest request);
 
 }

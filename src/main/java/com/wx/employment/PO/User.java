@@ -39,5 +39,7 @@ public class User implements Serializable {
 
     private BigDecimal latitude;
 
+    private String avatar;
 
+    private String nickname;
 }

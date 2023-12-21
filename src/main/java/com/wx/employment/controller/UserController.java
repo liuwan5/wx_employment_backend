@@ -46,4 +46,8 @@ public class UserController {
         return userService.getLastLoginTime(request);
     }
 
+    @GetMapping("/getUserProfile")
+    public Result getUserProfile(HttpServletRequest request){
+        return userService.getUserProfile(request);
+    }
 }

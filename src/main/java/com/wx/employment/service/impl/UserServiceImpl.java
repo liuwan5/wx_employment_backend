@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.wx.employment.DAO.UserDao;
 import com.wx.employment.PO.User;
 import com.wx.employment.VO.Location;
+import com.wx.employment.VO.UserProfile;
 import com.wx.employment.common.Result;
 import com.wx.employment.config.Constant;
 import com.wx.employment.service.UserService;
@@ -94,6 +95,24 @@ public class UserServiceImpl implements UserService {
             User user = userDao.getById(nowUser.getUid());
             BeanUtils.copyProperties(user, location);
             return Result.getSuccess(location);
+        }catch (Exception e){
+            log.error(e.toString());
+            return Result.getFailure();
+        }
+    }
+
+    @Override
+    public Result<UserProfile> getUserProfile(HttpServletRequest request) {
+        try {
+            User nowUser = JwtUtil.getNowUser(request);
+            // 人工确认未登录，未使用shiro
+            if(nowUser == null){
+                return Result.noLogin();
+            }
+            UserProfile profile = new UserProfile();
+            User user = userDao.getById(nowUser.getUid());
+            BeanUtils.copyProperties(user, profile);
+            return Result.getSuccess(profile);
         }catch (Exception e){
             log.error(e.toString());
             return Result.getFailure();
