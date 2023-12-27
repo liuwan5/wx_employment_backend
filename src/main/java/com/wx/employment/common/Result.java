@@ -59,6 +59,9 @@ public class Result<T> implements Serializable {
     public static  <T> Result<T> getSuccess(T data){
         return executeSuccess("获取数据成功", data);
     }
+    public static <T> Result<T> uploadSuccess(T data){
+        return executeSuccess("上传成功", data);
+    }
 
     /**
      * 执行失败，返回状态码和msg

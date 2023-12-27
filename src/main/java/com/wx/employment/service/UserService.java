@@ -43,4 +43,8 @@ public interface UserService {
 
     public Result<UserProfile> getUserProfile(HttpServletRequest request);
 
+    public Result updateAvatar(String url, HttpServletRequest request);
+
+    public Result updateNickname(String nickname, HttpServletRequest request);
+
 }

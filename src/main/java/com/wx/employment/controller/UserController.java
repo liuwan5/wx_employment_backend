@@ -50,4 +50,14 @@ public class UserController {
     public Result getUserProfile(HttpServletRequest request){
         return userService.getUserProfile(request);
     }
+
+    @GetMapping("/updateAvatar")
+    public Result updateAvatar(String url, HttpServletRequest request){
+        return userService.updateAvatar(url, request);
+    }
+
+    @GetMapping("/updateNickname")
+    public Result updateNickname(String nickname, HttpServletRequest request){
+        return userService.updateNickname(nickname, request);
+    }
 }

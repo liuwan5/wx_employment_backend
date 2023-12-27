@@ -207,4 +207,38 @@ public class UserServiceImpl implements UserService {
         }
         return openid;
     }
+
+    @Override
+    public Result updateAvatar(String url, HttpServletRequest request) {
+        User nowUser = JwtUtil.getNowUser(request);
+        if(nowUser == null){
+            return Result.noLogin();
+        }
+        try {
+            User u = userDao.getById(nowUser.getUid());
+            u.setAvatar(url);
+            userDao.updateById(u);
+            return Result.executeSuccess("更新头像成功");
+        }catch (Exception e){
+            log.error(e.toString());
+            return Result.getFailure();
+        }
+    }
+
+    @Override
+    public Result updateNickname(String nickname, HttpServletRequest request) {
+        User nowUser = JwtUtil.getNowUser(request);
+        if(nowUser == null){
+            return Result.noLogin();
+        }
+        try {
+            User u = userDao.getById(nowUser.getUid());
+            u.setNickname(nickname);
+            userDao.updateById(u);
+            return Result.executeSuccess("更新昵称成功");
+        }catch (Exception e){
+            log.error(e.toString());
+            return Result.getFailure();
+        }
+    }
 }
